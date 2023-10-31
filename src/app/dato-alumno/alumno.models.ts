@@ -4,4 +4,5 @@ export interface Alumno {
     correo: string;
     contrasena: string;
     matricula:string;
+    presente:boolean;
 }

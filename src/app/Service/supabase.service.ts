@@ -47,7 +47,12 @@ export class SupabaseService {
             headers: new HttpHeaders({ apikey: this.supabaseKey })
         });
     }
-
+    putActualizarContrasenaAlumno(alumnoId: number, nuevaContrasena: string): Observable<any> {
+        const data = { contrasena: nuevaContrasena };
+        return this.httpClient.put<any>(`${this.supabaseUrl}alumno/${alumnoId}`, data, {
+            headers: new HttpHeaders({ apikey: this.supabaseKey }),
+        });
+    }
     getAllProfesor() {
         return this.httpClient.get(this.supabaseUrl + 'profesor', {
             headers: new HttpHeaders({ apikey: this.supabaseKey })
@@ -76,7 +81,12 @@ export class SupabaseService {
             params: { select: 'id' }
         });
     }
-
+    putActualizarContrasenaProfesor(profesorId: number, nuevaContrasena: string): Observable<any> {
+        const data = { contrasena: nuevaContrasena }; 
+        return this.httpClient.put<any>(`${this.supabaseUrl}profesor/${profesorId}`, data, {
+            headers: new HttpHeaders({ apikey: this.supabaseKey }),
+        });
+    }
 
     postProfesor() {
         return this.httpClient.post(this.supabaseUrl + 'profesor', null, {
