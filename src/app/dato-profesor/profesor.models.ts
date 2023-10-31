@@ -1,8 +1,6 @@
-export interface Alumno {
+export interface Profesor {
     id: number;
     nombre: string;
     correo: string;
     contrasena: string;
-    matricula:string;
-    presente:boolean;
 }

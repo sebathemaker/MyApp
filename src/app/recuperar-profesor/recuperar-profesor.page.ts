@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { SupabaseService } from '../Service/supabase.service';
 
 @Component({
   selector: 'app-recuperar-profesor',
@@ -9,13 +10,28 @@ import { Router } from '@angular/router';
 export class RecuperarProfesorPage {
   nuevaContrasena: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private supabaseService: SupabaseService 
+  ) {}
 
   recuperarContrasena() {
-    // Implementa la lógica para guardar la nueva contraseña del profesor.
-    // Puedes usar un servicio o una llamada a una API para realizar esta operación.
+    const profesorId =0;
+    const nuevaContrasena = this.nuevaContrasena; 
 
-    // Después de guardar la contraseña, redirige al menú correspondiente.
-    this.router.navigate(['/menu-profesor']);
+    this.supabaseService.putActualizarContrasenaProfesor(profesorId, nuevaContrasena).subscribe(
+      (response: any) => {
+        console.log('Contraseña actualizada con éxito');
+        this.mostrarNotificacion('Contraseña actualizada con éxito');
+      },
+      (error: any) => {
+        console.error('Error al actualizar la contraseña del profesor', error);
+        this.mostrarNotificacion('Error al actualizar la contraseña');
+      }
+    );
+  }
+
+  mostrarNotificacion(mensaje: string) {
+    console.log(mensaje);
   }
 }

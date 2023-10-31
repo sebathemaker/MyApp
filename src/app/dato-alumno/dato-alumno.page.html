@@ -1,13 +1,14 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>dato-alumno</ion-title>
+    <ion-title>
+      Datos del Alumno
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">dato-alumno</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="container" *ngIf="alumno">
+    <h2>Nombre: {{ alumno.nombre }}</h2>
+    <p>Correo Electrónico: {{ alumno.correo }}</p>
+  </div>
 </ion-content>
