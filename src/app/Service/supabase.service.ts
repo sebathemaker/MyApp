@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { supabaseKey } from './supabase.constants';
 import { Alumno } from '../dato-alumno/alumno.models';
 import { Observable } from 'rxjs';
-
+import { Profesor } from '../dato-profesor/profesor.models';
 
 @Injectable({
     providedIn: 'root',
@@ -28,6 +28,12 @@ export class SupabaseService {
             headers: new HttpHeaders({ apikey: this.supabaseKey }),
         });
     }
+    getAlumnoById(alumnoId: number): Observable<Alumno> {
+        return this.httpClient.get<Alumno>(`${this.supabaseUrl}alumno/${alumnoId}`, {
+            headers: new HttpHeaders({ apikey: this.supabaseKey })
+        });
+    }
+
 
 
     postAlumno() {
@@ -47,6 +53,30 @@ export class SupabaseService {
             headers: new HttpHeaders({ apikey: this.supabaseKey })
         });
     }
+    getProfesorById(profesorId: number): Observable<Profesor> {
+        return this.httpClient.get<Profesor>(`${this.supabaseUrl}profesor/${profesorId}`, {
+            headers: new HttpHeaders({ apikey: this.supabaseKey })
+        });
+    }
+    getProfesorCorreo(profesorId: number): Observable<string> {
+        return this.httpClient.get<string>(`${this.supabaseUrl}profesor/${profesorId}`, {
+            headers: new HttpHeaders({ apikey: this.supabaseKey }),
+            params: { fields: 'correo' }
+        });
+    }
+    getProfesorContrasena(profesorId: number): Observable<string> {
+        return this.httpClient.get<string>(`${this.supabaseUrl}profesor/${profesorId}`, {
+            headers: new HttpHeaders({ apikey: this.supabaseKey }),
+            params: { fields: 'contrasena' }
+        });
+    }
+    getProfesorIdPorCorreo(correo: string): Observable<number> {
+        return this.httpClient.get<number>(`${this.supabaseUrl}profesor?correo=eq.${correo}`, {
+            headers: new HttpHeaders({ apikey: this.supabaseKey }),
+            params: { select: 'id' }
+        });
+    }
+
 
     postProfesor() {
         return this.httpClient.post(this.supabaseUrl + 'profesor', null, {

@@ -1,15 +1,25 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Login Profesor
+      Iniciar Sesión como Profesor
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="container">
-    <img src="assets/img/login-image.png" alt="Imagen de login">
-    <ion-button expand="full" (click)="redirectToMenuProfesor()">Ingresar</ion-button>
-    <ion-button expand="full" (click)="redirectToRecuperarProfesor()">Recuperar contraseña</ion-button>
+    <ion-item>
+      <ion-label position="floating">Correo Electrónico</ion-label>
+      <ion-input type="email" [(ngModel)]="correo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" [(ngModel)]="contrasena"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" (click)="login()">Iniciar Sesión</ion-button>
+
+    <ion-button expand="full" (click)="redirectToRecuperarProfesor()">¿Olvidaste tu contraseña?</ion-button>
   </div>
 </ion-content>
