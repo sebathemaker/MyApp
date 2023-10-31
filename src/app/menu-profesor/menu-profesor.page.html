@@ -1,0 +1,41 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menú Profesor</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-menu-toggle auto-hide="false">
+        <ion-item (click)="redirectToAsistenciaProfesor()">
+          Asistencia Profesor
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle auto-hide="false">
+        <ion-item (click)="redirectToDatosProfesor()">
+          Datos Profesor
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">Tap the button in the toolbar to open the menu.</ion-content>
+</div>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Menú Alumno</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">Cerrar Sesión</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

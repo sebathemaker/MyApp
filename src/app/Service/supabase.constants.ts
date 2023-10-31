@@ -1,0 +1,2 @@
+export const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1pb3lubnplZmpqcHNwb2p1ZWRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc5MDAyMTQsImV4cCI6MjAxMzQ3NjIxNH0.OpvFcsMhr_EO-NSBw90dtw03xmG2V_zOcsxuB8LxTBQ'
+

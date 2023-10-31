@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Login Alumno
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <img src="assets/img/login-image.png" alt="Imagen de login">
+    <ion-item>
+      <ion-label position="stacked">Correo Electrónico</ion-label>
+      <ion-input [(ngModel)]="correo" type="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Contraseña</ion-label>
+      <ion-input [(ngModel)]="contrasena" type="password"></ion-input>
+    </ion-item>
+    <ion-button expand="full" (click)="login()">Ingresar</ion-button>
+    <ion-button expand="full" (click)="redirectToRecuperarAlumno()">Recuperar contraseña</ion-button>
+  </div>
+</ion-content>
