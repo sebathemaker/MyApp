@@ -11,7 +11,7 @@ import { Profesor } from '../dato-profesor/profesor.models';
 })
 export class SupabaseService {
 
-    private supabaseUrl = 'https://mioynnzefjjpspojuedl.susupapabase.co/rest/v1/';
+    private supabaseUrl = 'https://mioynnzefjjpspojuedl.supabase.co/rest/v1/';
     private supabaseKey = supabaseKey;
     private supabase = createClient(this.supabaseUrl, this.supabaseKey);
 
@@ -22,8 +22,8 @@ export class SupabaseService {
             headers: new HttpHeaders({ apikey: this.supabaseKey })
         });
     }
-    getAlumnoPorCorreo(correo: string): Observable<Alumno[]> {
-        const url = `${this.supabaseUrl}alumno?correo=eq.${correo}`;
+    getAlumnoPoremail(email: string): Observable<Alumno[]> {
+        const url = `${this.supabaseUrl}alumno?email=eq.${email}`;
         return this.httpClient.get<Alumno[]>(url, {
             headers: new HttpHeaders({ apikey: this.supabaseKey }),
         });
@@ -75,14 +75,14 @@ export class SupabaseService {
             params: { fields: 'contrasena' }
         });
     }
-    getProfesorIdPorCorreo(correo: string): Observable<number> {
-        return this.httpClient.get<number>(`${this.supabaseUrl}profesor?correo=eq.${correo}`, {
+    getProfesorIdPoremail(email: string): Observable<number> {
+        return this.httpClient.get<number>(`${this.supabaseUrl}profesor?email=eq.${email}`, {
             headers: new HttpHeaders({ apikey: this.supabaseKey }),
             params: { select: 'id' }
         });
     }
     putActualizarContrasenaProfesor(profesorId: number, nuevaContrasena: string): Observable<any> {
-        const data = { contrasena: nuevaContrasena }; 
+        const data = { contrasena: nuevaContrasena };
         return this.httpClient.put<any>(`${this.supabaseUrl}profesor/${profesorId}`, data, {
             headers: new HttpHeaders({ apikey: this.supabaseKey }),
         });

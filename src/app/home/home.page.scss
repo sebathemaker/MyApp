@@ -1,27 +1,22 @@
-#container {
+.container {
   text-align: center;
-
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 45%;
   top: 50%;
-  transform: translateY(-50%);
-}
+  transform: translate(-50%, -50%);
+  width: 70%; // Adjust the width as needed
+  max-width: 400px; // Set a max-width to control the card's size
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
+  ion-card-header {
+    ion-card-title {
+      font-size: 20px;
+      line-height: 26px;
+    }
+  }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+  ion-card-content {
+    ion-button {
+      margin-top: 10px;
+    }
+  }
 }
