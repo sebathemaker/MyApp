@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SupabaseService } from '../Service/supabase.service';
-import { Alumno } from '../dato-alumno/alumno.models'; 
+import { Alumno } from '../dato-alumno/alumno.models';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,23 +9,22 @@ import { Router } from '@angular/router';
   styleUrls: ['login-alumno.page.scss'],
 })
 export class LoginAlumnoPage {
-  correo: string = '';
+  email: string = '';
   contrasena: string = '';
 
   constructor(private supabaseService: SupabaseService, private router: Router) {}
 
   login() {
-    if (!this.correo || !this.contrasena) {
+    if (!this.email || !this.contrasena) {
       console.error('Correo y contraseña son obligatorios');
       return;
     }
 
-    this.supabaseService.getAlumnoPorCorreo(this.correo).subscribe(
+    this.supabaseService.getAlumnoPoremail(this.email).subscribe(
       (alumnos: Alumno[]) => {
         if (alumnos.length === 1) {
           const alumno = alumnos[0];
           if (alumno.contrasena === this.contrasena) {
-            
             this.router.navigate(['/menu-alumno']);
           } else {
             console.error('Contraseña incorrecta');

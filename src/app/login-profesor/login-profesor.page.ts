@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { SupabaseService } from '../Service/supabase.service'; 
+import { SupabaseService } from '../Service/supabase.service';
 @Component({
   selector: 'app-login-profesor',
   templateUrl: 'login-profesor.page.html',
   styleUrls: ['login-profesor.page.scss'],
 })
 export class LoginProfesorPage {
-  correo: string = '';
+  email: string = '';
   contrasena: string = '';
 
   constructor(private supabaseService: SupabaseService, private router: Router) { }
 
   login() {
-    if (!this.correo || !this.contrasena) {
+    if (!this.email || !this.contrasena) {
       console.error('Correo y contraseña son obligatorios');
       return;
     }
-    this.checkProfesorCredentials(this.correo, this.contrasena);
+    this.checkProfesorCredentials(this.email, this.contrasena);
   }
 
   redirectToMenuProfesor() {
@@ -28,8 +28,8 @@ export class LoginProfesorPage {
     this.router.navigate(['/recuperar-profesor']);
   }
 
-  private checkProfesorCredentials(correo: string, contrasena: string): void {
-    this.supabaseService.getProfesorIdPorCorreo(correo).subscribe(
+  private checkProfesorCredentials(email: string, contrasena: string): void {
+    this.supabaseService.getProfesorIdPoremail(email).subscribe(
       (profesorId: number) => {
         this.verifyProfesorContrasena(contrasena, profesorId);
       },
@@ -53,4 +53,4 @@ export class LoginProfesorPage {
       }
     );
   }
-}  
+}

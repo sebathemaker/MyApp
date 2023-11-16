@@ -1,0 +1,24 @@
+.container {
+    text-align: center;
+    position: absolute;
+    left: 45%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%; // Adjust the width as needed
+    max-width: 400px; // Set a max-width to control the card's size
+  
+    img {
+      width: 100%; // Make the image width 100% of its container
+      max-width: 100%; // Ensure the image doesn't exceed its original size
+      height: auto; // Maintain the image's aspect ratio
+    }
+  
+    ion-item {
+      text-align: left; // Adjust as needed
+    }
+  
+    ion-button {
+      margin-top: 10px;
+    }
+  }
+  
