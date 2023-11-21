@@ -20,4 +20,5 @@ export class MenuAlumnoPage {
   logout() {
     this.router.navigate(['/home']);
   }
+ 
 }

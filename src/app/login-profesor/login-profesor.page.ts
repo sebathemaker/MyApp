@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { SupabaseService } from '../Service/supabase.service';
+import { Profesor } from '../dato-profesor/profesor.models'; 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-login-profesor',
   templateUrl: 'login-profesor.page.html',
@@ -10,47 +12,34 @@ export class LoginProfesorPage {
   email: string = '';
   contrasena: string = '';
 
-  constructor(private supabaseService: SupabaseService, private router: Router) { }
+  constructor(private supabaseService: SupabaseService, private router: Router) {}
 
   login() {
     if (!this.email || !this.contrasena) {
       console.error('Correo y contraseña son obligatorios');
       return;
     }
-    this.checkProfesorCredentials(this.email, this.contrasena);
-  }
 
-  redirectToMenuProfesor() {
-    this.router.navigate(['/menu-profesor']);
-  }
-
-  redirectToRecuperarProfesor() {
-    this.router.navigate(['/recuperar-profesor']);
-  }
-
-  private checkProfesorCredentials(email: string, contrasena: string): void {
-    this.supabaseService.getProfesorIdPoremail(email).subscribe(
-      (profesorId: number) => {
-        this.verifyProfesorContrasena(contrasena, profesorId);
-      },
-      (error) => {
-        console.error('Error al obtener el ID del profesor por correo', error);
-      }
-    );
-  }
-
-  private verifyProfesorContrasena(contrasena: string, profesorId: number): void {
-    this.supabaseService.getProfesorContrasena(profesorId).subscribe(
-      (contrasenaFromAPI: string) => {
-        if (contrasenaFromAPI === contrasena) {
-          this.redirectToMenuProfesor();
+    this.supabaseService.getProfesorPorEmail(this.email).subscribe(
+      (profesores: Profesor[]) => {
+        if (profesores.length === 1) {
+          const profesor = profesores[0];
+          if (profesor.contrasena === this.contrasena) {
+            this.router.navigate(['/menu-profesor']);
+          } else {
+            console.error('Contraseña incorrecta');
+          }
         } else {
-          console.error('Contraseña incorrecta');
+          console.error('Correo no encontrado');
         }
       },
       (error) => {
-        console.error('Error al obtener la contraseña del profesor', error);
+        console.error('Error al obtener profesor por correo', error);
       }
     );
+  }
+
+  redirectToRecuperarProfesor() {
+    this.router.navigateByUrl('/recuperar-profesor');
   }
 }
