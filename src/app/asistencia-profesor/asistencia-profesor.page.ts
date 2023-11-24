@@ -1,25 +1,36 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Alumno } from '../dato-alumno/alumno.models';
+import { Component, OnInit } from '@angular/core';
 import { SupabaseService } from '../Service/supabase.service';
-import { OnInit } from '@angular/core';
+import { Alumno } from '../dato-alumno/alumno.models';
 
 @Component({
   selector: 'app-asistencia-profesor',
   templateUrl: './asistencia-profesor.page.html',
   styleUrls: ['./asistencia-profesor.page.scss'],
 })
-export class AsistenciaProfesorPage{
-  alumnos: any[] = [];
+export class AsistenciaProfesorPage implements OnInit {
+  profesorActual: any; // Asegúrate de tener esta línea declarada
+
+  alumnos: Alumno[] = [];
   seccion: any;
-  profesor: any;
   clase: any;
 
+  constructor(private supabaseService: SupabaseService) {}
 
-  constructor(private supabaseService: SupabaseService) { }
+  ngOnInit() {
+    if (this.supabaseService.getProfesorActual()) {
+      this.profesorActual = this.supabaseService.getProfesorActual();
+      this.seccion = "1V";
+      this.clase = "MATEMATICAS";
+      console.log('Detalles del profesor:', this.profesorActual);
+      this.actualizarListaDeAlumnos();
+    } else {
+      console.error('No se ha encontrado un profesor actual');
+      // Puedes manejar esta situación según tus necesidades, por ejemplo, redirigir a una página de inicio de sesión.
+    }
+  }
 
   marcarAsistenciaAlumno(alumnoId: number, presente: boolean) {
-    this.supabaseService.putAsistenciaalumno(alumnoId, presente).subscribe(
+    this.supabaseService.putAsistenciaAlumno(alumnoId, presente).subscribe(
       (response: any) => {
         if (response) {
           console.log('Asistencia actualizada exitosamente');
@@ -33,9 +44,12 @@ export class AsistenciaProfesorPage{
   }
 
   actualizarListaDeAlumnos() {
-    this.supabaseService.getAllAlumno().subscribe((value: Object): void => {
-      const alumno = value as any[];
-    },
+    const profesorId = this.profesorActual.id;
+
+    this.supabaseService.getAlumnosPorProfesor(profesorId).subscribe(
+      (alumnos: Alumno[]) => {
+        this.alumnos = alumnos;
+      },
       (error: any) => {
         console.error('Error al obtener la lista de alumnos', error);
       },
@@ -44,5 +58,5 @@ export class AsistenciaProfesorPage{
       }
     );
   }
-
 }
+// SOLUCIONAR EL GETALUMNOSPORPROFESOR

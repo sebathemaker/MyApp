@@ -14,7 +14,7 @@ export class MenuProfesorPage {
   }
 
   redirectToDatosProfesor() {
-    this.router.navigate(['/datos-profesor']);
+    this.router.navigate(['/dato-profesor']);
   }
 
   logout() {
