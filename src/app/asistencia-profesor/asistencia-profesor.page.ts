@@ -8,7 +8,7 @@ import { Alumno } from '../dato-alumno/alumno.models';
   styleUrls: ['./asistencia-profesor.page.scss'],
 })
 export class AsistenciaProfesorPage implements OnInit {
-  profesorActual: any; // Asegúrate de tener esta línea declarada
+  profesorActual: any; 
 
   alumnos: Alumno[] = [];
   seccion: any;
@@ -25,7 +25,7 @@ export class AsistenciaProfesorPage implements OnInit {
       this.actualizarListaDeAlumnos();
     } else {
       console.error('No se ha encontrado un profesor actual');
-      // Puedes manejar esta situación según tus necesidades, por ejemplo, redirigir a una página de inicio de sesión.
+      
     }
   }
 
