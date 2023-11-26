@@ -9,10 +9,9 @@
   <h3>Profesor: {{ profesorActual.nombre }}</h3>
   <h4>Clase: {{ clase }}</h4>
 
-  <ion-list>
-    <ion-item *ngFor="let alumno of alumnos">
-      <ion-label>{{ alumno.nombre }}</ion-label>
-      <ion-checkbox [(ngModel)]="alumno.presente" (ionChange)="marcarAsistenciaAlumno(alumno.id, alumno.presente)"></ion-checkbox>
-    </ion-item>
-  </ion-list>
+  <ion-content>
+    <ion-button (click)="generarQR()">Mostrar Código QR</ion-button>
+    
+    <img [src]="qrCodeUrl" *ngIf="qrCodeUrl" />
+  </ion-content>
 </ion-content>

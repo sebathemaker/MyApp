@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';  
 import { SupabaseService } from '../Service/supabase.service';
 import { Alumno } from '../dato-alumno/alumno.models';
 
@@ -8,55 +9,37 @@ import { Alumno } from '../dato-alumno/alumno.models';
   styleUrls: ['./asistencia-profesor.page.scss'],
 })
 export class AsistenciaProfesorPage implements OnInit {
-  profesorActual: any; 
-
+  
+  qrCodeUrl: string= '';
+  profesorActual: any;
   alumnos: Alumno[] = [];
   seccion: any;
-  clase: any;
+  clase: string = "MATEMATICAS";
+  supabaseUrl: string = 'https://mioynnzefjjpspojuedl.supabase.co/rest/v1/'; 
 
-  constructor(private supabaseService: SupabaseService) {}
+  constructor(
+    private supabaseService: SupabaseService,
+    private httpClient: HttpClient  
+  ) {}
 
   ngOnInit() {
     if (this.supabaseService.getProfesorActual()) {
       this.profesorActual = this.supabaseService.getProfesorActual();
       this.seccion = "1V";
       this.clase = "MATEMATICAS";
-      console.log('Detalles del profesor:', this.profesorActual);
-      this.actualizarListaDeAlumnos();
     } else {
       console.error('No se ha encontrado un profesor actual');
-      
     }
   }
 
-  marcarAsistenciaAlumno(alumnoId: number, presente: boolean) {
-    this.supabaseService.putAsistenciaAlumno(alumnoId, presente).subscribe(
+  generarQR() {
+    this.httpClient.post(this.supabaseUrl + 'asistenciaalumno', {}).subscribe(
       (response: any) => {
-        if (response) {
-          console.log('Asistencia actualizada exitosamente');
-          this.actualizarListaDeAlumnos();
-        }
+        this.qrCodeUrl = response.qrCodeUrl;
       },
-      (error: any) => {
-        console.error('Error al actualizar la asistencia', error);
-      }
-    );
-  }
-
-  actualizarListaDeAlumnos() {
-    const profesorId = this.profesorActual.id;
-
-    this.supabaseService.getAlumnosPorProfesor(profesorId).subscribe(
-      (alumnos: Alumno[]) => {
-        this.alumnos = alumnos;
-      },
-      (error: any) => {
-        console.error('Error al obtener la lista de alumnos', error);
-      },
-      () => {
-        console.info('Fin de carga de alumnos');
+      (error) => {
+        console.error('Error generando QR:', error);
       }
     );
   }
 }
-// SOLUCIONAR EL GETALUMNOSPORPROFESOR

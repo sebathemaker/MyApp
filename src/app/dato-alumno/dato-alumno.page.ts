@@ -8,55 +8,21 @@ import { SupabaseService } from '../Service/supabase.service';
   templateUrl: './dato-alumno.page.html',
   styleUrls: ['./dato-alumno.page.scss'],
 
-  
+
 })
 export class DatoAlumnoPage implements OnInit {
-  alumno: Alumno | null = null;
-  alumnoId: number;
-  
-  asignaturaLunes: string;
-  asignaturaMartes: string;
-  asignaturaMiercoles: string;
-  asignaturaJueves: string ;
-  asignaturaViernes: string;
-  asignaturaSabado: string;
+  alumnoActual: Alumno | null = null;
 
-  constructor(
-    private route: ActivatedRoute,
-    private supabaseService: SupabaseService,
-  ) {
-    this.alumnoId = this.route.snapshot.params['alumnoId'];
-   
-    this.asignaturaLunes = 'asignaturalunes';
-    this.asignaturaMartes = 'asignaturaMartes';
-    this.asignaturaMiercoles = 'asignaturaMiercoles';
-    this.asignaturaJueves = 'asignaturaJueves';
-    this.asignaturaViernes = 'asignaturaViernes';
-    this.asignaturaSabado = 'asignaturaSabado';
-   
-  }
-  
+  constructor(private supabaseService: SupabaseService) { }
 
   ngOnInit() {
-    this.loadAlumnoData();
-  }
+    if (this.supabaseService.getAlumnoActual()) {
+      this.alumnoActual = this.supabaseService.getAlumnoActual();
+    } else {
 
-  private loadAlumnoData(): void {
-    this.supabaseService.getAlumnoById(this.alumnoId).subscribe(
-      (alumno: Alumno) => {
-        this.alumno = alumno;
-      },
-      (error) => {
-        console.error(
-          'Error al conseguir el alumno id',
-          this.alumnoId,
-          ' Error: ',
-          error
-        );
-      }
-    );
+    }
   }
-
-  
 }
+
+
 

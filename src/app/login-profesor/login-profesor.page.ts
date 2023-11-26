@@ -27,10 +27,10 @@ export class LoginProfesorPage {
         if (profesores.length === 1) {
           const profesor = profesores[0];
           if (profesor.contrasena === this.contrasena) {
-            // Almacenar detalles del profesor en el servicio
+            
             this.supabaseService.setDetallesProfesor(profesor);
 
-            // Redirigir a la página del menú del profesor
+            
             this.router.navigate(['/menu-profesor']);
           } else {
             console.error('Contraseña incorrecta');
