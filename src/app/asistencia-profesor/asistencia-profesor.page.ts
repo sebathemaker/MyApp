@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';  
 import { SupabaseService } from '../Service/supabase.service';
 import { Alumno } from '../dato-alumno/alumno.models';
-
+import { HttpErrorResponse } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-asistencia-profesor',
   templateUrl: './asistencia-profesor.page.html',
@@ -33,13 +34,23 @@ export class AsistenciaProfesorPage implements OnInit {
   }
 
   generarQR() {
-    this.httpClient.post(this.supabaseUrl + 'asistenciaalumno', {}).subscribe(
+    const headers = new HttpHeaders({
+      'Authorization': 'supabaseKey'  
+    });
+  
+    this.httpClient.post(this.supabaseUrl + 'asistenciaalumno', {}, { headers }).subscribe(
       (response: any) => {
         this.qrCodeUrl = response.qrCodeUrl;
       },
       (error) => {
-        console.error('Error generando QR:', error);
+        if (error instanceof HttpErrorResponse && error.status === 401) {
+          console.error('Error de autenticación al generar QR:', error);
+          
+        } else {
+          console.error('Error generando QR:', error);
+        }
       }
     );
-  }
+  
+} 
 }

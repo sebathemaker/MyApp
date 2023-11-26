@@ -13,7 +13,8 @@ import { AsistenciaProfesorPage } from './asistencia-profesor.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    AsistenciaProfesorPageRoutingModule
+    AsistenciaProfesorPageRoutingModule,
+    
   ],
   declarations: [AsistenciaProfesorPage]
 })

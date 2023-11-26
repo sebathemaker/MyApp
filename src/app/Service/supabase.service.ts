@@ -43,10 +43,10 @@ export class SupabaseService {
 
     setDetallesAlumno(detallesAlumno: Alumno) {
         this.alumnoActual = detallesAlumno;
-      }
+    }
     getAlumnoActual(): Alumno | null {
         return this.alumnoActual;
-      }
+    }
 
 
     postAlumno() {
@@ -162,9 +162,19 @@ export class SupabaseService {
     }
 
     postAsistenciaAlumno() {
-        return this.httpClient.post(this.supabaseUrl + 'asistenciaalumno', null, {
-            headers: new HttpHeaders({ apikey: this.supabaseKey })
-        });
+        const url = this.supabaseUrl + 'asistenciaalumno';
+        const headers = new HttpHeaders({ 'apikey': this.supabaseKey });
+
+        return this.httpClient.post(url, null, { headers }).subscribe(
+            (response: any) => {
+                console.log('Respuesta exitosa:', response);
+
+            },
+            (error) => {
+                console.error('Error al realizar la solicitud:', error);
+
+            }
+        );
     }
 
 
