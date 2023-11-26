@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { SupabaseService } from '../Service/supabase.service';
 import { Alumno } from '../dato-alumno/alumno.models';
@@ -25,6 +26,9 @@ export class LoginAlumnoPage {
         if (alumnos.length === 1) {
           const alumno = alumnos[0];
           if (alumno.contrasena === this.contrasena) {
+            
+            this.supabaseService.setDetallesAlumno(alumno);
+
             this.router.navigate(['/menu-alumno']);
           } else {
             console.error('Contraseña incorrecta');
@@ -39,7 +43,7 @@ export class LoginAlumnoPage {
     );
   }
 
-redirectToRecuperarAlumno() {
-  this.router.navigateByUrl('/recuperar-alumno');
-}
+  redirectToRecuperarAlumno() {
+    this.router.navigateByUrl('/recuperar-alumno');
+  }
 }

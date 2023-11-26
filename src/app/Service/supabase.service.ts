@@ -15,6 +15,7 @@ export class SupabaseService {
     private supabaseKey = supabaseKey;
     private supabase = createClient(this.supabaseUrl, this.supabaseKey);
     private profesorActual: Profesor | null = null;
+    private alumnoActual: Alumno | null = null;
     constructor(private readonly httpClient: HttpClient) { }
 
     getAllAlumno() {
@@ -33,7 +34,19 @@ export class SupabaseService {
             headers: new HttpHeaders({ apikey: this.supabaseKey })
         });
     }
+    getDetallesAlumno(alumnoId: number): Observable<Alumno> {
+        const url = `${this.supabaseUrl}Alumno/${alumnoId}`;
+        return this.httpClient.get<Alumno>(url, {
+            headers: new HttpHeaders({ apikey: this.supabaseKey }),
+        });
+    }
 
+    setDetallesAlumno(detallesAlumno: Alumno) {
+        this.alumnoActual = detallesAlumno;
+      }
+    getAlumnoActual(): Alumno | null {
+        return this.alumnoActual;
+      }
 
 
     postAlumno() {

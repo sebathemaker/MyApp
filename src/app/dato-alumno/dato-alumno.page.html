@@ -7,8 +7,9 @@
 </ion-header>
 
 <ion-content>
-  <div class="container" *ngIf="alumno">
-    <h2>Nombre: {{ alumno.nombre }}</h2>
-    <p>Correo Electrónico: {{ alumno.email }}</p>
+  <div *ngIf="alumnoActual">
+    <p>Nombre: {{ alumnoActual.nombre }}</p>
+    <p>Correo: {{ alumnoActual.email }}</p>
+
   </div>
 </ion-content>
