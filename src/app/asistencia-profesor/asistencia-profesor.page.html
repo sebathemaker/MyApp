@@ -9,9 +9,9 @@
   <h3>Profesor: {{ profesorActual.nombre }}</h3>
   <h4>Clase: {{ clase }}</h4>
 
-  <ion-content>
-    <ion-button (click)="generarQR()">Mostrar Código QR</ion-button>
-    
-    <img [src]="qrCodeUrl" *ngIf="qrCodeUrl" />
-  </ion-content>
+  <ion-button (click)="generarQR()">Mostrar Código QR</ion-button>
+
+  <div *ngIf="qrCodeUrl">
+    <img [src]="qrCodeUrl" alt="Código QR" />
+  </div>
 </ion-content>
